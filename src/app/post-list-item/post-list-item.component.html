@@ -1,8 +1,15 @@
-<li class="list-group-item">
-  <h3>titre</h3>
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-  <button type="button" class="btn btn-success">love it</button>
-  <button type="button" class="btn btn-danger">Dont love It</button>
-  date
+<li [ngClass]="{'list-group-item': true,
+                'list-group-item-success': count > 0,
+                'list-group-item-danger': count < 0}">
+  <h3>{{title}}</h3>
+  <p>{{content}}</p>
+  <button type="button" class="btn btn-success"
+  (click)="count = count + 1 " >love it</button>
+  <button type="button" class="btn btn-danger"
+  (click)="count = count -1">Dont love It</button>
+  <p>nombre de love{{count}}</p>
+  {{created_at | date: 'short'}}
 
 </li>
+
+

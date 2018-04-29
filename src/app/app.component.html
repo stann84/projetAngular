@@ -3,9 +3,10 @@
     <div class="col-xs-12">
       <h1>Application type blog a like</h1>
       <h2>Post</h2>
-      <app-post-list></app-post-list>
-      <app-post-list></app-post-list>
-      <app-post-list></app-post-list>
+      <app-post-list-item [title]="post1" [loveits]="'love it'"></app-post-list-item>
+      <app-post-list-item [title]="post2" [loveits]="'dont love it'"></app-post-list-item>
+      <app-post-list-item [title]="post3" [loveits]=""></app-post-list-item>
+
     </div>
   </div>
 </div>
