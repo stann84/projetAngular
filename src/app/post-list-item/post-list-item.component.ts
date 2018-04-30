@@ -9,14 +9,12 @@ export class PostListItemComponent implements OnInit {
 
   @Input() title: string;
   @Input() content: string;
-  @Input() loveits: number;
-  @Input() count: number;
+  @Input() loveIts: number;
 
-  content = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
   created_at = new Date();
-  count = 0;
+  loveIts = 0;
 
-  constructor() { }
+   constructor() { }
 
   ngOnInit() {
   }
