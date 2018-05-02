@@ -12,7 +12,6 @@ posts = [
     {
       title: 'Mon premier post',
       content: '1Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua'
-      loveIts: 0,
     },
     {
       title: 'Mon second post',
@@ -22,8 +21,6 @@ posts = [
       title: 'Encore un post',
       content: '3Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua'
     }
-
-
   ];
 
 }
