@@ -1,11 +1,5 @@
 <div class="container">
-  <div class="row">
-    <div class="col-xs-12">
-      <h1>Application type blog a like</h1>
-      <h2>Post</h2>
-      <app-post-list-item *ngFor="let post of posts"
-      [title]="post.title"[content]="post.content"></app-post-list-item>
-      </div>
-  </div>
+  <app-header></app-header>
+<router-outlet></router-outlet>
 </div>
 
