@@ -1,26 +1,23 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Post} from '../models/Post.model';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {PostsService} from '../services/post.service';
-import * as firebase from 'firebase';
-import {post} from 'selenium-webdriver/http';
 import {Subscription} from 'rxjs/Subscription';
+import {Post} from '../models/Post.model';
 
 @Component({
   selector: 'app-post-list-item',
   templateUrl: './post-list-item.component.html',
   styleUrls: ['./post-list-item.component.scss']
 })
-export class PostListItemComponent implements OnInit {
+export class PostListItemComponent implements OnInit , OnDestroy {
 
   @Input() title: string;
   @Input() content: string;
   @Input() indexOfPost: number;
   @Input() id: number;
   @Input() loveIts: number;
-  @Input() post;
   created_at = new Date();
 
-posts: Post[];
+posts: Post[] ;
 postsSubscription: Subscription ;
 
    constructor(private postService: PostsService) {
@@ -32,18 +29,30 @@ postsSubscription: Subscription ;
          this.posts = posts ;
        }
      );
-     this.postService.emitPosts();
+     this.postService.getPosts();
+     this.postService.emitPostsSubject();
       }
-  onDeletePost(post: Post) {
-    this.postService.removePost(post);
-  }
-  onLike() {
-    this.loveIts ++;
-    this.postService.savePosts();
+  /*onDeletePost(post: Post) {
+       this.postService.removePost(post);
+       console.log(post);
+  }*/
 
+  onDeletePost(indexOfPost: number) {
+    console.log('ce post est le' + this.indexOfPost);
+    // this.postService.removePost(post);
+    // console.log('on delete ' + post);
+}
+
+
+  onLike(indexOfPost: number) {
+    console.log(this.indexOfPost);
+   this.postService.like(this.indexOfPost);
   }
-  onDislike() {
-    this.loveIts --;
+  onDislike(indexOfPost: number) {
+    this.postService.disLike(this.indexOfPost);
+  }
+  ngOnDestroy() {
+     this.postsSubscription.unsubscribe();
   }
 
 }

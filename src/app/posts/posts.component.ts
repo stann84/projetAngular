@@ -25,7 +25,7 @@ export class PostsComponent implements OnInit {
         this.posts = posts;
       }
     );
-    this.postsService.emitPosts();
+    this.postsService.emitPostsSubject();
     this.postsService.getPosts();
   }
 }

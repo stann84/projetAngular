@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Input } from '@angular/core';
 import * as  firebase from 'firebase';
 import {Subject} from 'rxjs/Subject';
 import {Post} from '../models/Post.model';
 import {HttpClient} from '@angular/common/http';
-
+import index from '@angular/cli/lib/cli';
 
 
 @Injectable()
@@ -14,56 +14,95 @@ export class PostsService {
 
    constructor (private httpClient: HttpClient) {}
 
-   emitPosts() {
+   emitPostsSubject() {
      this.postsSubject.next(this.posts);
    }
+
 // ajouter des posts vers la base de donnée
+   // anciene sauvegarde
    savePosts() {
      console.log('enregistrement');
      firebase.database().ref('/posts').set(this.posts);
    }
-   createNewPost(newPost: Post) {
+
+
+  /*savePosts() {
+    this.httpClient
+      .put('https://blog-7bd4e.firebaseio.com/posts.json' , this.posts)
+      .subscribe(
+        () => {
+          console.log('enregistrement terminé');
+        },
+        (error) => {
+          console.log('erreur de sauvegarde' + error);
+        }
+      );
+  }*/
+  savePostUp(i: number) {
+   //  this.posts[index].loveIts = 4;
+  }
+
+
+
+  createNewPost(newPost: Post) {
      this.posts.push(newPost);
      this.savePosts();
-     this.emitPosts();
+     this.emitPostsSubject();
    }
 
-   saveToServer() {
-     this.httpClient
-       .put('https://blog-7bd4e.firebaseio.com/post.json' , this.posts)
-       .subscribe(
-         () => {
-           console.log('enregistrement terminé');
-         },
-       (error) => {
-           console.log('erreur de sauvegarde' + error);
-       }
-       );
-   }
 
    // afficher les post : recuperer la liste sur la base de donnée (.on réagie en temps reel)
-   getPosts() {
+  getPosts() {
      firebase.database().ref('posts')
        .on('value', (data) => {
          this.posts = data.val() ? data.val() : [];
-         this.emitPosts();
+         this.emitPostsSubject();
          }
        );
    }
  // supprimer des post
-   removePost(post: Post) {
-     const postIndexToremove = this.posts.findIndex(
+   removePost(indexOfPost: Post) {
+     const postIndexToRemove = this.posts.findIndex(
        (postEl) => {
+         console.log('element' + postEl);
          if (postEl === post) {
+           console.log('element trouvé' + post);
            return true;
          }
        }
      );
-     this.posts.splice(postIndexToremove, 1);
+     this.posts.splice(postIndexToRemove, 1);
      this.savePosts();
-     this.emitPosts();
+     this.emitPostsSubject();
    }
+
+   like(indexOfPost: number) {
+     this.posts[indexOfPost].loveIts ++;
+     this.savePosts();
+     this.emitPostsSubject();
     }
+
+    disLike(indexOfPost: number) {
+      this.posts[indexOfPost].loveIts --;
+      this.savePosts();
+      this.emitPostsSubject();
+    }
+
+
+   /*like() {
+     this.httpClient
+       .put('https://dslappareils.firebaseio.com/posts.json' , this.posts)
+       .subscribe(
+         () => {
+           console.log('Enregistrement terminé ');
+         },
+         (error) => {
+           console.log('Erreur de sauvegarde' + error );
+         }
+       );
+     this.emitPostsSubject();
+  }*/
+   }
 
  /* avant peut etre methode template
   posts = [

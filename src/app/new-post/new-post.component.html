@@ -1,6 +1,6 @@
 <p>ajouter un post</p>
 
-  <form [formGroup]="postForm" (ngSubmit)="onSavePost()" >
+<form [formGroup]="postForm" (ngSubmit)="onSavePost()" >
   <div class="form-group">
     <label for="title">titre</label>
     <input type="text" class="form-control" id="title" formControlName="title">
