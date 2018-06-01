@@ -38,9 +38,7 @@ postsSubscription: Subscription ;
   }*/
 
   onDeletePost(indexOfPost: number) {
-    console.log('ce post est le' + this.indexOfPost);
-    // this.postService.removePost(post);
-    // console.log('on delete ' + post);
+     this.postService.removePost(this.indexOfPost);
 }
 
 

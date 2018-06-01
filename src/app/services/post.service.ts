@@ -21,7 +21,6 @@ export class PostsService {
 // ajouter des posts vers la base de donnée
    // anciene sauvegarde
    savePosts() {
-     console.log('enregistrement');
      firebase.database().ref('/posts').set(this.posts);
    }
 
@@ -60,21 +59,30 @@ export class PostsService {
          }
        );
    }
- // supprimer des post
-   removePost(indexOfPost: Post) {
-     const postIndexToRemove = this.posts.findIndex(
-       (postEl) => {
-         console.log('element' + postEl);
-         if (postEl === post) {
-           console.log('element trouvé' + post);
-           return true;
-         }
-       }
-     );
-     this.posts.splice(postIndexToRemove, 1);
-     this.savePosts();
-     this.emitPostsSubject();
-   }
+ // supprimer un post
+
+ removePost(indexOfPost: number) {
+  const postIndexToRemove = indexOfPost ;
+  console.log(indexOfPost);
+  this.posts.splice(postIndexToRemove, 1);
+  this.savePosts();
+  this.emitPostsSubject();
+}
+
+/*removePost(post: Post) {
+  const postIndexToRemove = this.posts.findIndex(
+    (postEl) => {
+      console.log(postEl);
+      if (postEl === post) {
+        console.log('element trouvé' + post);
+        return true;
+      }
+    }
+  );
+  this.posts.splice(postIndexToRemove, 1);
+  this.savePosts();
+  this.emitPostsSubject();
+}*/
 
    like(indexOfPost: number) {
      this.posts[indexOfPost].loveIts ++;
@@ -87,21 +95,6 @@ export class PostsService {
       this.savePosts();
       this.emitPostsSubject();
     }
-
-
-   /*like() {
-     this.httpClient
-       .put('https://dslappareils.firebaseio.com/posts.json' , this.posts)
-       .subscribe(
-         () => {
-           console.log('Enregistrement terminé ');
-         },
-         (error) => {
-           console.log('Erreur de sauvegarde' + error );
-         }
-       );
-     this.emitPostsSubject();
-  }*/
    }
 
  /* avant peut etre methode template
